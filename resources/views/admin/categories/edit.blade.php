@@ -7,7 +7,7 @@
         <div class="add-edit-product-wrap">
 
             <div class="add-edit-product-form">
-                {!! Form::model($category,['method'=>'PATCH' , 'action'=>['AdminCategoriesController@update',$category->id]]) !!}
+                {!! Form::model($category,['method'=>'PATCH' , 'action'=>['AdminCategoriesController@update',$category->id],'files'=>true]) !!}
 
                 <h4 class="title">اضافه کردن دسته بندی جدید</h4>
 
@@ -30,6 +30,18 @@
                     <div class="col-lg-5 col-12 mb-30 @if(! $category->has_parent) d-none @endif" id="parent_id_div">
                         <label for="parent_id">دسته بندی والد</label>
                         {!! Form::select('parent_id',$selectInputCategories, null , ['class'=>'form-control','id'=>'parent_id']) !!}
+                    </div>
+                </div>
+
+                <div class="row @if(! $category->has_parent) d-none @endif" id="child_info_div">
+                    <div class="col-lg-4 offset-lg-8 col-12 mb-20">
+                        <h6 class="mb-15">تصویر (120 * 120)</h6>
+                        <input class="dropify" type="file" name="image" @if($category->image) data-default-file="{{$category->image->path}}" @endif>
+                    </div>
+
+                    <div class="col-lg-4 offset-lg-8 col-12 mb-20">
+                        <label for="favorite">نمایش در صفحه اصلی</label>
+                        {!! Form::select('favorite',['0'=>'خیر','1'=>'بله'], null , ['class'=>'form-control','id'=>'favorite']) !!}
                     </div>
                 </div>
 
@@ -60,12 +72,16 @@
 @endsection
 
 @section('scripts')
+    <script src="{{asset('/assets/js/plugins/dropify/dropify.min.js')}}"></script>
+    <script src="{{asset('/assets/js/plugins/dropify/dropify.active.js')}}"></script>
     <script>
         $("#has_parent").on('change',function () {
             if($(this).val() === "1"){
                 $("#parent_id_div").removeClass('d-none');
+                $("#child_info_div").removeClass('d-none');
             }else{
                 $("#parent_id_div").addClass('d-none');
+                $("#child_info_div").addClass('d-none');
             }
         })
     </script>

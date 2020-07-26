@@ -116,6 +116,7 @@ class AdminBlogsController extends Controller
 
         if ($file = $request->file('image')){
 
+            $deleteImages = new interventionImages();
             $deleteImages->delete($blog->image);
             $blog->image->delete();
             $name = time(). $file->getClientOriginalName();
@@ -143,6 +144,7 @@ class AdminBlogsController extends Controller
         $blog = Blog::findOrFail($id);
         $deleteImages= new interventionImages();
         $deleteImages->delete($blog->image);
+        $blog->image->delete();
         $blog->delete();
 
         return redirect(route('blogs.index'));

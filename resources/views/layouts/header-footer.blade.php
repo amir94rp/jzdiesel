@@ -79,9 +79,9 @@
                         </ul>
                     </div>
                     <div class="search-container">
-                        <form action="#">
+                        <form action="{{route('search-result')}}" method="GET">
                             <div class="search_box">
-                                <input placeholder="کل فروشگاه را اینجا جستجو کنید ..." type="text">
+                                <input placeholder="کل فروشگاه را اینجا جستجو کنید ..." type="text" name="search">
                                 <button type="submit"><i class="icon-search"></i></button>
                             </div>
                         </form>
@@ -93,92 +93,48 @@
                         <div class="customer_support_text">
                             <p>
                                 <span>پشتیبان مشتری</span>
-                                <a href="tel:(08)12345789">(08)12345789</a>
+                                <a href="tel:0989129219431">0912-921-9431</a>
                             </p>
                         </div>
                     </div>
                     <div id="menu" class="text-left ">
                         <ul class="offcanvas_main_menu">
-                            <li class="menu-item-has-children active">
-                                <a href="#">صفحه اصلی</a>
-                                <ul class="sub-menu">
-                                    <li><a href="index.html">صفحه اصلی 1</a></li>
-                                    <li><a href="index-2.html">صفحه اصلی 2</a></li>
-                                    <li><a href="index-3.html">صفحه اصلی 3</a></li>
-                                    <li><a href="index-4.html">صفحه اصلی 4</a></li>
-                                </ul>
+                            <li class="menu-item-has-children">
+                                <a href="{{route('index')}}">صفحه اصلی </a>
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">فروشگاه</a>
                                 <ul class="sub-menu">
-                                    <li class="menu-item-has-children">
-                                        <a href="#">طرح های فروشگاه</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="shop.html">فروشگاه </a></li>
-                                            <li><a href="shop-fullwidth.html">عرض کامل </a> </li>
-                                            <li><a href="shop-fullwidth-list.html">لیست کامل عرض </a> </li>
-                                            <li><a href="shop-right-sidebar.html">نوار کناری راست </a> </li>
-                                            <li><a href="shop-right-sidebar-list.html"> لیست نوار سمت راست </a> </li>
-                                            <li><a href="shop-list.html">نمای لیست </a> </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">صفحات دیگر </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="cart.html">سبد خرید </a> </li>
-                                            <li><a href="wishlist.html">لیست دلخواه </a> </li>
-                                            <li><a href="checkout.html">پرداخت </a> </li>
-                                            <li><a href="my-account.html">حساب من </a> </li>
-                                            <li><a href="404.html">خطای 404 </a> </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">انواع محصول </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="product-details.html">جزئیات محصول </a> </li>
-                                            <li><a href="product-sidebar.html">نوار کناری محصول </a> </li>
-                                            <li><a href="product-grouped.html">محصول گروه بندی شده </a> </li>
-                                            <li><a href="variable-product.html">متغیر محصول </a> </li>
-                                        </ul>
-                                    </li>
+                                    @foreach($headerCategories as $headerParentCategory)
+                                        @if((int)$headerParentCategory->has_parent == 0)
+                                            <li class="menu-item-has-children">
+                                                <a href="#">{{$headerParentCategory->name}}</a>
+                                                <ul class="sub-menu">
+                                                    @foreach($headerCategories as $headerChildCategory)
+                                                        @if((int)$headerChildCategory->has_parent ==1 AND (int)$headerChildCategory->parent_id == $headerParentCategory->id)
+                                                            <li><a href="{{route('product-grid')."?category=".$headerChildCategory->slug}}">{{$headerChildCategory->name}} </a></li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="#">وبلاگ </a>
-                                <ul class="sub-menu">
-                                    <li><a href="blog.html">وبلاگ </a></li>
-                                    <li><a href="blog-details.html">جزئیات وبلاگ </a> </li>
-                                    <li><a href="blog-fullwidth.html">تمام عرض وبلاگ </a> </li>
-                                    <li><a href="blog-sidebar.html">نوار کناری وبلاگ </a> </li>
-                                </ul>
-
+                                <a href="{{route('blog-sidebar')}}">وبلاگ </a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="#">صفحات </a>
-                                <ul class="sub-menu">
-                                    <li><a href="about.html">درباره ما </a> </li>
-                                    <li><a href="services.html">خدمات </a> </li>
-                                    <li><a href="faq.html">خدمات </a> </li>
-                                    <li><a href="login.html">وارد شوید </a> </li>
-                                    <li><a href="compare.html">مقایسه </a> </li>
-                                    <li><a href="privacy-policy.html">حریم خصوصی </a> </li>
-                                    <li><a href="coming-soon.html">به زودی</a></li>
-                                </ul>
+                                <a href="{{route('about-us')}}">درباره ما </a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="my-account.html">حساب من </a>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="about.html">درباره ما </a>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="contact.html"> با ما تماس بگیرید </a>
+                                <a href="{{route('contact-us')}}"> با ما تماس بگیرید </a>
                             </li>
                         </ul>
                     </div>
 
                     <div class="offcanvas_footer">
-                        <span><a href="#"><i class="fa fa-envelope-o"></i> info@yourdomain.com</a></span>
+                        <span><a href="#"><i class="fa fa-envelope-o"></i> info@jzdiesel.ir</a></span>
                         <ul>
                             <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -231,15 +187,15 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-6">
                     <div class="logo">
-                        <a href="index.html"><img src="{{asset('user-interface-dependencies/img/logo/logo.png')}}" alt=""></a>
+                        <a href="{{route('index')}}"><img src="{{asset('user-interface-dependencies/img/logo/logo.png')}}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-6">
                     <div class="middel_right">
                         <div class="search-container">
-                            <form action="#">
+                            <form action="{{route('search-result')}}" method="GET">
                                 <div class="search_box">
-                                    <input placeholder="کل فروشگاه را اینجا جستجو کنید ..." type="text">
+                                    <input placeholder="کل فروشگاه را اینجا جستجو کنید ..." type="text" name="search">
                                     <button type="submit"><i class="icon-search"></i></button>
                                 </div>
                             </form>
@@ -251,7 +207,7 @@
                             <div class="customer_support_text">
                                 <p>
                                     <span>پشتیبان مشتری</span>
-                                    <a href="tel:(08)12345789">(08)12345789</a>
+                                    <a href="tel:0989129219431">0912-921-9431</a>
                                 </p>
                             </div>
                         </div>
@@ -270,80 +226,29 @@
                         <div class="main_menu">
                             <nav>
                                 <ul>
-                                    <li><a href="index.html">صفحه اصلی<i class="fa fa-angle-down"></i></a>
-                                        <ul class="sub_menu">
-                                            <li><a href="index.html">صفحه اصلی 1</a></li>
-                                            <li><a href="index-2.html">صفحه اصلی 2</a></li>
-                                            <li><a href="index-3.html">صفحه اصلی 3</a></li>
-                                            <li><a href="index-4.html">صفحه اصلی 4</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="mega_items"><a href="shop.html">فروشگاه<i class="fa fa-angle-down"></i></a>
+                                    <li><a href="{{route('index')}}">صفحه اصلی </a> </li>
+                                    <li class="mega_items"><a href="{{route('product-grid')}}">فروشگاه<i class="fa fa-angle-down"></i></a>
                                         <div class="mega_menu">
                                             <ul class="mega_menu_inner">
-                                                <li><a href="#">طرح های فروشگاه</a>
-                                                    <ul>
-                                                        <li><a href="shop-fullwidth.html">عرض کامل</a></li>
-                                                        <li><a href="shop-fullwidth-list.html">لیست کامل عرض </a> </li>
-                                                        <li><a href="shop-right-sidebar.html">نوار کناری راست </a></li>
-                                                        <li><a href="shop-right-sidebar-list.html"> لیست نوار سمت راست </a> </li>
-                                                        <li><a href="shop-list.html">نمای لیست </a> </li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">صفحات دیگر </a>
-                                                    <ul>
-                                                        <li><a href="cart.html">سبد خرید </a> </li>
-                                                        <li><a href="wishlist.html">لیست دلخواه </a> </li>
-                                                        <li><a href="checkout.html">پرداخت </a> </li>
-                                                        <li><a href="my-account.html">حساب من </a> </li>
-                                                        <li><a href="404.html">خطای 404 </a> </li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">انواع محصول </a>
-                                                    <ul>
-                                                        <li><a href="product-details.html">جزئیات محصول </a> </li>
-                                                        <li><a href="product-sidebar.html">نوار کناری محصول </a> </li>
-                                                        <li><a href="product-grouped.html">محصول گروه بندی شده </a> </li>
-                                                        <li><a href="variable-product.html">متغیر محصول </a> </li>
-
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">ابزارهای بتونی</a>
-                                                    <ul>
-                                                        <li><a href="shop.html">کابل ها و اتصالات</a></li>
-                                                        <li><a href="shop-list.html">قرص های گرافیکی</a></li>
-                                                        <li><a href="shop-fullwidth.html">چاپگر ، جوهر و تونر</a></li>
-                                                        <li><a href="shop-fullwidth-list.html">قرص های مرمت شده</a></li>
-                                                        <li><a href="shop-right-sidebar.html">درایوهای نوری</a></li>
-
-                                                    </ul>
-                                                </li>
+                                                @foreach($headerCategories as $headerParentCategory)
+                                                    @if((int)$headerParentCategory->has_parent == 0)
+                                                        <li><a href="#">{{$headerParentCategory->name}}</a>
+                                                            <ul>
+                                                                @foreach($headerCategories as $headerChildCategory)
+                                                                    @if((int)$headerChildCategory->has_parent ==1 AND (int)$headerChildCategory->parent_id == $headerParentCategory->id)
+                                                                        <li><a href="{{route('product-grid')."?category=".$headerChildCategory->slug}}">{{$headerChildCategory->name}}</a></li>
+                                                                    @endif
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
                                             </ul>
-                                            <div class="banner_static_menu">
-                                                <a href="shop.html"><img src="{{asset('user-interface-dependencies/img/bg/banner1.jpg')}}" alt=""></a>
-                                            </div>
                                         </div>
                                     </li>
-                                    <li><a href="blog.html">بلاگ<i class="fa fa-angle-down"></i></a>
-                                        <ul class="sub_menu pages">
-                                            <li><a href="blog-details.html">جزئیات وبلاگ </a> </li>
-                                            <li><a href="blog-fullwidth.html">تمام عرض وبلاگ </a> </li>
-                                            <li><a href="blog-sidebar.html">نوار کناری وبلاگ </a> </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">صفحات <i class="fa fa-angle-down"></i></a>
-                                        <ul class="sub_menu pages">
-                                            <li><a href="about.html">درباره ما </a> </li>
-                                            <li><a href="services.html">خدمات </a> </li>
-                                            <li><a href="faq.html">خدمات </a> </li>
-                                            <li><a href="login.html">وارد شوید </a> </li>
-                                            <li><a href="compare.html">مقایسه </a> </li>
-                                            <li><a href="privacy-policy.html">حریم خصوصی </a> </li>
-                                            <li><a href="coming-soon.html">به زودی</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="about.html">درباره ما </a> </li>
-                                    <li><a href="contact.html"> تماس با ما</a></li>
+                                    <li><a href="{{route('blog-sidebar')}}">بلاگ </a> </li>
+                                    <li><a href="{{route('about-us')}}">درباره ما </a> </li>
+                                    <li><a href="{{route('contact-us')}}"> تماس با ما</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -367,10 +272,10 @@
                 <div class="col-lg-3 col-md-3 col-sm-5">
                     <div class="widgets_container contact_us">
                         <div class="footer_logo">
-                            <a href="#"><img src="{{asset('user-interface-dependencies/img/logo/logo.png')}}" alt=""></a>
+                            <a href="{{route('index')}}"><img src="{{asset('user-interface-dependencies/img/logo/logo.png')}}" alt=""></a>
                         </div>
                         <div class="footer_contact">
-                            <p>پخش و توزیع دیزل ژنراتور</p>
+                            <p>شرکت jzdiesel یا همان دیزل ژنراتور جععرزاده فعالیت خود را به طور رسمی از سال ۱۳۹۸ شروع کرده،و با به همراه داشتن کادری مجرب هم در زمینه ی مشاوره ی خرید و هم در زمینه ی خدمات فنی سعی در همراهی شما عزیزان دارد</p>
                             <div class="customer_support">
                                 <div class="support_img_icon">
                                     <img src="{{asset('user-interface-dependencies/img/icon/hotline.png')}}" alt="">
@@ -378,7 +283,7 @@
                                 <div class="customer_support_text">
                                     <p>
                                         <span>پشتیبان مشتری</span>
-                                        <a href="tel:(08)123456789">(08) 123 456 789</a>
+                                        <a href="tel:0989129219431">0912-921-9431</a>
                                     </p>
                                 </div>
                             </div>
@@ -417,16 +322,8 @@
                         <h3>اطلاعات</h3>
                         <div class="footer_menu">
                             <ul>
-                                <li><a href="#">تحویل</a></li>
-                                <li><a href="about.html">درباره ما </a></li>
-                                <li><a href="contact.html"> تماس با ما</a></li>
-                                <li><a href="#">فروشگاه ها</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">اطلاع قانونی</a></li>
-                                <li><a href="#">پرداخت امن</a></li>
-                                <li><a href="#">راهنما</a></li>
-                                <li><a href="my-account.html"> حساب من </a></li>
+                                <li><a href="{{route('about-us')}}">درباره ما </a></li>
+                                <li><a href="{{route('contact-us')}}"> تماس با ما</a></li>
                             </ul>
                         </div>
                     </div>
@@ -439,7 +336,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="copyright_area">
-                        <p>کپی رایت &copy; 1399 <a href="#">JZDiesel.</a> تمام حقوق محفوظ است.</p>
+                        <p>کپی رایت &copy; 1399 <a href="{{route('index')}}">JZDiesel.</a> تمام حقوق محفوظ است.</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -466,7 +363,7 @@
                     <div class="row">
                         <div class="col-lg-5 col-md-5 col-sm-12">
                             <div class="modal_tab">
-                                <div class="tab-content product-details-large">
+                                <div class="tab-content product-details-large" id="modalImageContainer">
                                     <div class="tab-pane fade show active" id="tab1" role="tabpanel">
                                         <div class="modal_tab_img">
                                             <a href="#"><img src="{{asset('user-interface-dependencies/img/product/product1.jpg')}}" alt=""></a>
@@ -488,19 +385,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal_tab_button">
+                                <div class="modal_tab_button" id="modalImageNav">
                                     <ul class="nav product_navactive owl-carousel" role="tablist">
                                         <li>
-                                            <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="user-interface-dependencies/img/product/product1.jpg" alt=""></a>
+                                            <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="{{asset('user-interface-dependencies/img/product/product1.jpg')}}" alt=""></a>
                                         </li>
                                         <li>
-                                            <a class="nav-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><img src="user-interface-dependencies/img/product/product2.jpg" alt=""></a>
+                                            <a class="nav-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><img src="{{asset('user-interface-dependencies/img/product/product2.jpg')}}" alt=""></a>
                                         </li>
                                         <li>
-                                            <a class="nav-link button_three" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false"><img src="user-interface-dependencies/img/product/product3.jpg" alt=""></a>
+                                            <a class="nav-link button_three" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false"><img src="{{asset('user-interface-dependencies/img/product/product3.jpg')}}" alt=""></a>
                                         </li>
                                         <li>
-                                            <a class="nav-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false"><img src="user-interface-dependencies/img/product/product5.jpg" alt=""></a>
+                                            <a class="nav-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false"><img src="{{asset('user-interface-dependencies/img/product/product5.jpg')}}" alt=""></a>
                                         </li>
 
                                     </ul>
@@ -519,33 +416,8 @@
                                 <div class="modal_description mb-15">
                                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است </p>
                                 </div>
-                                <div class="variants_selects">
-                                    <div class="variants_size">
-                                        <h2>اندازه</h2>
-                                        <select class="select_option">
-                                            <option selected value="1">s</option>
-                                            <option value="1">m</option>
-                                            <option value="1">l</option>
-                                            <option value="1">xl</option>
-                                            <option value="1">xxl</option>
-                                        </select>
-                                    </div>
-                                    <div class="variants_color">
-                                        <h2>رنگ</h2>
-                                        <select class="select_option">
-                                            <option selected value="1">بنفش</option>
-                                            <option value="1">بنفشه</option>
-                                            <option value="1">سیاه</option>
-                                            <option value="1">صورتی</option>
-                                            <option value="1">نارنجی</option>
-                                        </select>
-                                    </div>
-                                    <div class="modal_add_to_cart">
-                                        <form action="#">
-                                            <input min="1" max="100" step="1" value="1" type="number">
-                                            <button type="submit">افزودن به سبد</button>
-                                        </form>
-                                    </div>
+                                <div class="product_variant quantity">
+                                    <a href="tel:0989129218431" class="button">تماس با پشتیبان</a>
                                 </div>
                                 <div class="modal_social">
                                     <h2>این محصول را به اشتراک بگذارید</h2>
@@ -565,7 +437,6 @@
         </div>
     </div>
 </div>
-
 <!-- modal area end-->
 
 <!-- JS
@@ -594,13 +465,131 @@
 <script src="{{asset('user-interface-dependencies/js/slinky.menu.js')}}"></script>
 <!-- Plugins JS -->
 <script src="{{asset('user-interface-dependencies/js/plugins.js')}}"></script>
-
+@yield('footer')
 <!-- Main JS -->
 <script src="{{asset('user-interface-dependencies/js/main.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        function addCommas(nStr)
+        {
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
 
+        $('li.quick_button a').on('click',function (event) {
+            event.preventDefault();
+            let productId=$(this).attr('data-product-id');
+
+            $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN':'{{csrf_token()}}'
+                }
+            });
+
+            $.ajax({
+                type:'POST',
+                url:'{{route('quick-view')}}',
+                data:{'productId':productId},
+                success:function (product) {
+
+                    //start add images to modal
+                    let counter =1;
+                    let modalImageContainer=$("#modalImageContainer");
+                    modalImageContainer.empty();
+
+                    let modalImageNav=$("#modalImageNav");
+                    modalImageNav.empty();
+                    let imageNavHtmlHolder="";
+
+                    $.each(product.images , function (indexImage,image) {
+                        let imageClass="";
+                        if(counter == 1){imageClass="show active"}
+                        let imageHtml="<div class='tab-pane fade "+imageClass+"' id='tab"+counter+"' role='tabpane"+counter+"'>" +
+                            "<div class='modal_tab_img'>" +
+                            "<a href='#'><img src='"+image.path+"' alt=''></a>" +
+                            "</div>" +
+                            "</div>";
+                        modalImageContainer.append(imageHtml);
+
+                        imageClass="";
+                        let navHtml="";
+                        if(counter == 1){
+                            imageClass="active";
+                            navHtml +="<ul class='nav product_navactive owl-carousel' role='tablist'>";
+                        }
+                        navHtml +="<li>" +
+                            "<a class='nav-link "+imageClass+"' data-toggle='tab' href='#tab"+counter+"' role='tab' aria-controls='tab"+counter+"' aria-selected='false'><img src='"+image.path+"' alt=''></a>" +
+                            "</li>";
+
+                        if(counter == product.images.length){
+                            navHtml +="</ul>";
+                        }
+                        imageNavHtmlHolder += navHtml;
+                        counter++;
+                    });
+
+                    modalImageNav.append(imageNavHtmlHolder);
+                    $('.product_navactive').owlCarousel({
+                        autoplay: true,
+                        loop: true,
+                        nav: true,
+                        autoplay: false,
+                        autoplayTimeout: 8000,
+                        items: 4,
+                        dots:false,
+                        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+                        responsiveClass:true,
+                        responsive:{
+                            0:{
+                                items:1,
+                            },
+                            250:{
+                                items:2,
+                            },
+                            480:{
+                                items:3,
+                            },
+                            768:{
+                                items:4,
+                            },
+
+                        }
+                    });
+                    //end add images to modal
+
+                    //add other info
+                    $('div.modal_description p').text(product.description.substr(0,300) + " ...");
+                    $('div.modal_title h2').text(product.title);
+
+                    //add price info
+                    let modalPriceHtml="";
+                    if(product.price != 0){
+                        if (product.has_discount != 0){
+                            let newPrice=product.price -(product.price*product.discount/100);
+                            modalPriceHtml += "<span class='new_price'>"+addCommas(newPrice)+" تومان</span>" +
+                                "<span class='old_price' >"+addCommas(product.price)+" تومان</span>";
+                        }else{
+                            modalPriceHtml += "<span class='new_price'>"+addCommas(product.price)+" تومان</span>";
+                        }
+                    }
+                    $("div.modal_price").empty().append(modalPriceHtml);
+                    $("#modal_box").modal('show');
+                },
+                error:function (product) {
+
+                }
+            });
+        })
+    })
+</script>
 
 
 </body>
-
-
 </html>

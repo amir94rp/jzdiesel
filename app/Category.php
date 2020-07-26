@@ -11,5 +11,13 @@ class Category extends Model
         'slug',
         'has_parent',
         'parent_id',
+        'image_id',
+        'favorite',
     ];
+
+    public function image(){
+
+        return $this->belongsTo('App\Image');
+
+    }
 }

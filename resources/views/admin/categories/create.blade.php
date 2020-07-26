@@ -7,7 +7,7 @@
         <div class="add-edit-product-wrap">
 
             <div class="add-edit-product-form">
-                {!! Form::open(['method'=>'POST' , 'action'=>'AdminCategoriesController@store']) !!}
+                {!! Form::open(['method'=>'POST' , 'action'=>'AdminCategoriesController@store','files'=>true]) !!}
 
                 <h4 class="title">اضافه کردن دسته بندی جدید</h4>
 
@@ -33,6 +33,21 @@
                     <div class="col-lg-5 col-12 mb-30 d-none" id="parent_id_div">
                         <label for="parent_id">دسته بندی والد</label>
                         {!! Form::select('parent_id',$categories, null , ['class'=>'form-control','id'=>'parent_id']) !!}
+                    </div>
+                </div>
+
+                <div class="row d-none" id="child_info_div">
+                    <div class="col-lg-4 offset-lg-8 col-12 mb-20">
+                        <h6 class="mb-15">تصویر (120 * 120)</h6>
+                        <input class="dropify" type="file" name="image">
+                    </div>
+
+                    <div class="col-lg-4 offset-lg-8 col-12 mb-20">
+                        <label for="favorite">نمایش در صفحه اصلی</label>
+                        <select name="favorite" id="favorite" class="form-control">
+                            <option value="0">خیر</option>
+                            <option value="1">بله</option>
+                        </select>
                     </div>
                 </div>
 
@@ -63,12 +78,16 @@
 @endsection
 
 @section('scripts')
+    <script src="{{asset('/assets/js/plugins/dropify/dropify.min.js')}}"></script>
+    <script src="{{asset('/assets/js/plugins/dropify/dropify.active.js')}}"></script>
     <script>
         $("#has_parent").on('change',function () {
             if($(this).val() === "1"){
                 $("#parent_id_div").removeClass('d-none');
+                $("#child_info_div").removeClass('d-none');
             }else{
                 $("#parent_id_div").addClass('d-none');
+                $("#child_info_div").addClass('d-none');
             }
         })
     </script>

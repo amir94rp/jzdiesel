@@ -1,19 +1,19 @@
 /*-----------------------------------------------------------------------------------
 
-    
+
     CSS INDEX
     =========================================
     01. header css here
     02. slider area css here
     03. product section css here
-    04. banner section css here 
+    04. banner section css here
     05. blog area css here
     06. newsletter area css here
     07. footer area css here
     08. shop page css here
-    09. error page css heer 
+    09. error page css heer
     10. about page css here
-    11. blog page css here 
+    11. blog page css here
     12. blog details css here
     13. cart page css here
     14. checkout page css here
@@ -30,8 +30,8 @@
     25. compare css here
     26. privacy policy css here
     27. coming-soon css here
-    
-    
+
+
 
 -----------------------------------------------------------------------------------*/
 @font-face {
@@ -172,7 +172,7 @@ ul {
   padding: 0;
 }
 
-/*-- 
+/*--
     - Common Classes
 -----------------------------------------*/
 .fix {
@@ -225,7 +225,7 @@ ul {
   margin: 0;
 }
 
-/*-- 
+/*--
     - Background color
 -----------------------------------------*/
 .bg-white {
@@ -271,10 +271,10 @@ ul {
   height: 100%;
 }
 
-/*-- 
+/*--
     - color
 -----------------------------------------*/
-/*-- 
+/*--
     - Input Placeholder
 -----------------------------------------*/
 input:-moz-placeholder, textarea:-moz-placeholder {
@@ -297,8 +297,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
-/*-- 
-    Scroll Up 
+/*--
+    Scroll Up
 -----------------------------------------*/
 #scrollUp {
   background: #fdb813 none repeat scroll 100% 0;
@@ -326,7 +326,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   animation-iteration-count: infinite;
 }
 
-/*-- 
+/*--
     - Main Wrapper
 -----------------------------------------*/
 .main-wrapper.header-transparent {
@@ -334,7 +334,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   margin: 0 !important;
 }
 
-/*-- 
+/*--
     - Section Padding
 -------------------------------------*/
 .section-ptb {
@@ -545,7 +545,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 99;
+  z-index: 9999;
   opacity: 0;
   visibility: hidden;
   cursor: crosshair;
@@ -575,7 +575,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   width: 290px;
   position: fixed;
   background: #fff;
-  z-index: 99;
+  z-index: 9999;
   top: 0;
   height: 100vh;
   transition: .5s;
@@ -1606,7 +1606,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   visibility: hidden;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  z-index: 99;
+  z-index: 9999;
   top: 100%;
   text-align: right;
 }

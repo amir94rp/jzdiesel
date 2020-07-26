@@ -102,7 +102,11 @@ class AdminBrandsController extends Controller
 
         if ($file = $request->file('image')){
 
-            if (file_exists(public_path().$brand->image->path)){unlink(public_path().$brand->image->path);}
+            if($brand->image){
+                if (file_exists(public_path().$brand->image->path)){unlink(public_path().$brand->image->path);}
+                $brand->image->delete();
+            }
+
             $name = time() . $file->getClientOriginalName();
             $file->move('images',$name);
             $image = Image::create(['path'=>$name]);
@@ -122,8 +126,10 @@ class AdminBrandsController extends Controller
     public function destroy($id)
     {
         $brand =Brand::findOrFail($id);
-        if (file_exists(public_path().$brand->image->path)){unlink(public_path().$brand->image->path);}
-        $brand->image->delete();
+        if($brand->image){
+            if (file_exists(public_path().$brand->image->path)){unlink(public_path().$brand->image->path);}
+            $brand->image->delete();
+        }
         $brand->delete();
         return redirect(route('brand.index'));
     }

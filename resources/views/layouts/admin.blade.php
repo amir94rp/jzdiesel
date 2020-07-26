@@ -171,6 +171,18 @@
                             <li><a href="{{route('category.create')}}"><span>اضافه کردن دسته بندی</span></a></li>
                         </ul>
                     </li>
+                    <li class="has-sub-menu"><a href="#"><span>slider</span></a>
+                        <ul class="side-header-sub-menu">
+                            <li><a href="{{route('slider.index')}}"><span>نمایش همه</span></a></li>
+                            <li><a href="{{route('slider.create')}}"><span>اضافه کردن slider</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has-sub-menu"><a href="#"><span>بنر</span></a>
+                        <ul class="side-header-sub-menu">
+                            <li><a href="{{route('banner.index')}}"><span>نمایش همه</span></a></li>
+                            <li><a href="{{route('banner.create')}}"><span>اضافه کردن بنر</span></a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
 

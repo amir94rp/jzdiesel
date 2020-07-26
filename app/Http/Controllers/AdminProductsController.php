@@ -87,7 +87,7 @@ class AdminProductsController extends Controller
         $input['brand_slug']=$brand->slug;
 
         if ($request['discount'] > 0){
-            $input['discount_expiration'] = date('YYYY-MM-DD', strtotime($request['discount_expiration']));
+            $input['discount_expiration'] = date('Y-m-d', strtotime($request['discount_expiration']));
         }else{
             $input['discount_expiration']=null;
         }
@@ -134,7 +134,8 @@ class AdminProductsController extends Controller
         $brands = Brand::all()->pluck('name','id');
         $product->brand_id=Brand::where('name',$product->brand_name)->first()->id;
         $product->category_id=Category::where('name',$product->category_name)->first()->id;
-        $product['discount_expiration'] = date('m/d/Y', strtotime($product['discount_expiration']));
+        if ($product['discount_expiration'] != null){$product['discount_expiration'] = date('m/d/Y', strtotime($product['discount_expiration']));}
+        else{$product['discount_expiration'] = date('m/d/Y', strtotime('now'));}
 
         return view('admin.products.edit',compact('product','childCategories','brands'));
     }
